@@ -1,0 +1,43 @@
+<!doctype html>
+
+<meta charset=utf-8>
+<title>Continuous Polling Interval Adjuster</title>
+
+<body>
+
+
+<script src=adjuster.js ></script>
+<script>
+
+
+(function () {
+    var a = new adjuster([1000, 4000]);
+    function foo() {
+        console.log('try');
+        if (Math.random() < 0.5) {
+            console.log('yes');
+            a.success();
+        } else {
+            console.log('nope');
+        }
+        setTimeout(foo, a.gtd());
+    }
+    foo();
+    if (false) { // just to demo that any number of these adjusters can run at the same time
+        var b = new adjuster();
+        function bar() {
+            console.log('trybar');
+            if (Math.random() < 0.3) {
+                console.log('da');
+                a.success();
+            } else {
+                console.log('niet');
+            }
+            setTimeout(bar, b.gtd());
+        }
+        bar();
+    }
+}());
+
+</script>
+</body>
